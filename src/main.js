@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import 'element-ui/lib/theme-chalk/index.css';
+import TreeTable from 'vue-table-with-tree-grid'
 
 //导入全局样式表
 import './assets/css/global.css'
@@ -38,6 +39,7 @@ import { MessageBox } from 'element-ui';
 import { Tag } from 'element-ui';
 import { Tree } from 'element-ui';
 import { Select, Option } from 'element-ui';
+import { Cascader } from 'element-ui';
 
 Vue.use(Button)
 Vue.use(Form)
@@ -66,7 +68,9 @@ Vue.use(Tag)
 Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Cascader)
 
+Vue.component('tree-table',TreeTable)
 Vue.prototype.$message = Message;
 Vue.prototype.$confirm = MessageBox.confirm
 
