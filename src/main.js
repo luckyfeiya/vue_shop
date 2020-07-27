@@ -40,6 +40,8 @@ import { Tag } from 'element-ui';
 import { Tree } from 'element-ui';
 import { Select, Option } from 'element-ui';
 import { Cascader } from 'element-ui';
+import { Alert } from 'element-ui';
+import { Tabs,TabPane } from 'element-ui';
 
 Vue.use(Button)
 Vue.use(Form)
@@ -69,6 +71,9 @@ Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Cascader)
+Vue.use(Alert)
+Vue.use(Tabs)
+Vue.use(TabPane)
 
 Vue.component('tree-table',TreeTable)
 Vue.prototype.$message = Message;
