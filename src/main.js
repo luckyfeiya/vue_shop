@@ -7,6 +7,15 @@ import TreeTable from 'vue-table-with-tree-grid'
 //导入全局样式表
 import './assets/css/global.css'
 
+// 导入富文本编辑器
+import VueQuillEditor from 'vue-quill-editor'
+
+// 导入富文本编辑器的样式
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme
+
+
 import axios from 'axios'
 Vue.prototype.$http = axios
 // 配置请求的根路径
@@ -42,6 +51,9 @@ import { Select, Option } from 'element-ui';
 import { Cascader } from 'element-ui';
 import { Alert } from 'element-ui';
 import { Tabs,TabPane } from 'element-ui';
+import { Steps, Step } from 'element-ui';
+import { CheckboxGroup, Checkbox } from 'element-ui';
+import { Upload } from 'element-ui';
 
 Vue.use(Button)
 Vue.use(Form)
@@ -74,12 +86,33 @@ Vue.use(Cascader)
 Vue.use(Alert)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Step)
+Vue.use(Steps)
+Vue.use(CheckboxGroup)
+Vue.use(Checkbox)
+Vue.use(Upload)
 
+// 将富文本编辑器注册到全局
+Vue.use(VueQuillEditor)
 Vue.component('tree-table',TreeTable)
 Vue.prototype.$message = Message;
 Vue.prototype.$confirm = MessageBox.confirm
 
+// 自定义一个全局过滤器
+Vue.filter('dateFormat',function(oldValue) {
+  const dt = new Date(oldValue);
 
+  const yyyy = dt.getFullYear();
+  const mm = ((dt.getMonth()+1) + '').padStart(2,'0');
+  const dd = (dt.getDate() + '').padStart(2,'0');
+
+  // 时 分 秒
+  const h = (dt.getHours() + '').padStart(2,'0');
+  const m = (dt.getMinutes() + '').padStart(2,'0');
+  const s = (dt.getSeconds() + '').padStart(2,'0');
+
+  return `${yyyy}-${mm}-${dd} ${h}:${m}:${s}`;
+})
 
 Vue.config.productionTip = false
 
