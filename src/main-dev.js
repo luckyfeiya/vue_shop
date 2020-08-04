@@ -15,6 +15,9 @@ import 'quill/dist/quill.core.css' // import styles
 import 'quill/dist/quill.snow.css' // for snow theme
 import 'quill/dist/quill.bubble.css' // for bubble theme
 
+// 导入nprogress包对应的js和样式表
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 import axios from 'axios'
 Vue.prototype.$http = axios
@@ -23,9 +26,16 @@ axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1'
 
 // 设置请求拦截器
 axios.interceptors.request.use(config => {
-  console.log(config);
+  // 在request拦截器中，展示进度条
+  NProgress.start();
+  // console.log(config);
   // 在最后必须return config
   config.headers.Authorization = window.sessionStorage.getItem('token');
+  return config;
+})
+axios.interceptors.response.use(config => {
+  // 在response拦截器中，隐藏进度条
+  NProgress.done();
   return config;
 })
 
@@ -55,6 +65,7 @@ import { Steps, Step } from 'element-ui';
 import { CheckboxGroup, Checkbox } from 'element-ui';
 import { Upload } from 'element-ui';
 import { Timeline} from 'element-ui';
+import nProgress from 'nprogress';
 
 Vue.use(Button)
 Vue.use(Form)

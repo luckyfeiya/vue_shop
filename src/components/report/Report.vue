@@ -17,6 +17,7 @@
 <script>
 // 导入echarts
 import echarts from 'echarts'
+import _ from 'lodash'
 export default {
     name:'Report',
     data(){
