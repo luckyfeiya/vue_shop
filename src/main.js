@@ -30,7 +30,7 @@ axios.interceptors.request.use(config => {
 })
 
 // 按需导入element-ui中的组件
-import { Button } from 'element-ui'
+import { Button, TimelineItem } from 'element-ui'
 import { Form,FormItem } from 'element-ui'
 import { Input } from 'element-ui'
 import { Message } from 'element-ui'
@@ -54,6 +54,7 @@ import { Tabs,TabPane } from 'element-ui';
 import { Steps, Step } from 'element-ui';
 import { CheckboxGroup, Checkbox } from 'element-ui';
 import { Upload } from 'element-ui';
+import { Timeline} from 'element-ui';
 
 Vue.use(Button)
 Vue.use(Form)
@@ -91,6 +92,8 @@ Vue.use(Steps)
 Vue.use(CheckboxGroup)
 Vue.use(Checkbox)
 Vue.use(Upload)
+Vue.use(Timeline)
+Vue.use(TimelineItem)
 
 // 将富文本编辑器注册到全局
 Vue.use(VueQuillEditor)
