@@ -214,6 +214,85 @@ Vue 打包后报错 Uncaught TypeError: Cannot redefine property: $router
 <script src="https://cdn.staticfile.org/element-ui/2.8.2/index.js"></script>
 ```
 
+### 项目上线
+#### 1.通过node创建web服务器
+创建node项目,并安装express,通过express快速创建服务器,将vue打包生成的dist文件夹,托管为静态资源即可,关键代码如下:
+```
+const express = require('express')
+// 创建web服务器
+const app = express()
+
+// 托管为静态资源
+app.use(express.static('./dist'))
+
+// 启动web服务器
+app.listen(80,() => {
+  console.log('web server running at http://127.0.0.1')
+})
+```
+
+#### 2.开启gzip配置
+使用gzip可以减小文件体积,使传输速度更快。
+可以通过服务器端使用Express做gzip压缩。其配置如下:
+```
+// 安装相应包
+npm install compression -D
+
+// 导入包
+const compression = require('compression');
+
+// 启用中间件,一定要把这行代码写到 静态资源托管之前
+app.use(compression());
+```
+
+#### 3.配置https服务
+为什么要启用https服务?
+1. 传统的HTTP协议传输的数据都是明文,不安全
+2. 采用HTTPS协议对传输的数据进行了加密处理,可以防止数据被中间人窃取,使用更安全
+
+如何配置HTTPS服务
+申请SSL证书(https://freessl.org)
+1. 进入https://freessl.cn/官网,输入要申请的域名并选择品牌。
+2. 输入自己的邮箱并选择相关选项。
+3. 验证DNS(在域名管理后台添加TXT记录)。
+4. 验证通过后,下载SSL证书(full_chain.pem公钥;private.key私钥)。
+
+在后台项目中导入证书
+```
+const https = require('https');
+const fs = require('fs');
+const options ={
+    cert: fs.readFileSync('./full_chain_pem'),
+    key:fs.readFileSync('./private.key')
+}
+https.createServer(options,app).listen(443);
+```
+
+#### 4.使用pm2管理应用
+1. 在服务器中安装pm2
+```
+npm intall pm2 -g
+```
+2. 启动项目
+```
+pm2 start 脚本 --name 自定义名称
+```
+3. 查看运行项目
+```
+pm2 ls
+```
+4. 重启项目
+```
+pm2 restart 自定义名称/ID
+```
+5. 停止项目
+```
+pm2 stop 自定义名称/ID
+```
+6. 删除项目
+```
+pm2 delete 自定义名称/ID
+```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

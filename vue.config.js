@@ -6,7 +6,6 @@ module.exports = {
 
             config.set('externals',{
                 vue:'Vue',
-                'vue-router':'VueRouter',
                 axios:'axios',
                 lodash:'_',
                 echarts:'echarts',
